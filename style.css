@@ -1,0 +1,129 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --black: #000;
+    --white: #fff;
+    --orange: orange;
+}
+
+body {
+    background: var(--black);
+    font-family: 'Inter', sans-serif;
+}
+
+.center {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.clock {
+    width: 400px;
+    height: 400px;
+    position: relative;
+}
+
+.points {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.point {
+    background: rgba(255, 255, 255, 0.7);
+    display: block;
+    width: 1px;
+    height: 12px;
+    border-radius: 0.8mm;
+    position: absolute;
+    top: calc(50% - 6px);
+    left: calc(50% - 0.3mm);
+}
+
+.point.big {
+    background: var(--white);
+    border: 0.3mm solid rgba(255, 255, 255, 0.8);
+    height: 14px;
+    top: calc(50% - 7px);
+    left: calc(50% - 0.2mm);
+}
+
+.point.big .text {
+    color: var(--white);
+    position: absolute;
+    top: 100%;
+    left: calc(50% - 20px);
+    font-size: 30px;
+    font-weight: 600;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    overflow: hidden;
+}
+
+.seconds, .minutes, .hours {
+    width: 2px;
+    height: 155px;
+    position: absolute;
+    top: 50%;
+    left: calc(50% - 1px);
+    border-radius: 0.6mm;
+    transform-origin: 1px 0;
+}
+
+.seconds {
+    background: var(--orange);
+    height: 182px;
+    top: calc(50% - 26px);
+    transform: rotate(30deg);
+    transform-origin: 1px 26px;
+}
+
+.minutes, .hours {
+    background: var(--white);
+}
+
+.hours {
+    height: 110px;
+    transform: rotate(-30deg);
+}
+
+.minutes::before, .hours::before {
+    content: "";
+    background: var(--white);
+    position: absolute;
+    bottom: -3px;
+    left: 50%;
+    transform: translate(-50%, 0);
+    width: 8px;
+    height: calc(100% - 22px);
+    border-radius: 2mm;
+}
+
+.pivot, .pivot::before {
+    width: 10px;
+    height: 10px;
+    background: var(--black);
+    border: 3px solid var(--white);
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.pivot::before {
+    content: "";
+    width: 5px;
+    height: 5px;
+    border: 1px solid var(--orange);
+}
