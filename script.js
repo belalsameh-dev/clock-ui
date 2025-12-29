@@ -9,15 +9,14 @@ let hourNumber = 12;
 for (let i = 0; i < 360; i += 6) {
   const point = document.createElement("span");
   point.classList.add("point");
-
   if ((i / 6) % 5 === 0) {
     point.classList.add("big");
     const text = document.createElement("span");
     text.className = "text";
     text.textContent = hourNumber;
     text.style.transform = `rotate(${-i}deg) translateY(2px)`;
-    hourNumber === 12 ? (hourNumber = 1) : (hourNumber += 1);
     point.appendChild(text);
+    hourNumber === 12 ? (hourNumber = 1) : (hourNumber += 1);
   }
   point.style.transform = `rotate(${i}deg) translateY(-150px)`;
   points.appendChild(point);
@@ -31,13 +30,15 @@ const setPointer = (pointer, deg) => {
 function setTime() {
   const now = new Date();
 
-  const secDeg = now.getSeconds() * 6,
-    minDeg = now.getMinutes() * 6,
-    hourDeg = now.getHours() * 30 + minDeg / 12;
+  const degree = {
+    second: now.getSeconds() * 6,
+    minute: now.getMinutes() * 6,
+    hour: now.getHours() * 30 + now.getMinutes() * 0.5,
+  };
 
-  setPointer(pointer.second, secDeg);
-  setPointer(pointer.minute, minDeg);
-  setPointer(pointer.hour, hourDeg);
+  setPointer(pointer.second, degree.second);
+  setPointer(pointer.minute, degree.minute);
+  setPointer(pointer.hour, degree.hour);
 }
 setTime();
 setInterval(setTime, 1000);
