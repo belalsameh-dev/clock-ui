@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Orbitron:wght@400..900&display=swap');
 
 * {
     margin: 0;
@@ -7,9 +7,9 @@
 }
 
 :root {
-    --black: #000;
-    --white: #fff;
-    --orange: orange;
+    --black: #1e1e1e;
+    --white: #f2f2f2;
+    --main: cyan;
 }
 
 body {
@@ -23,12 +23,16 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
 }
 
-.clock {
-    width: 400px;
-    height: 400px;
+.analog {
+    width: 350px;
+    height: 350px;
     position: relative;
+    border-radius: 50%;
+    background: var(--black);
+    box-shadow: -3px -3px 5px rgba(255, 255, 255, 0.05), 3px 3px 5px rgba(0, 0, 0, 0.5);
 }
 
 .points {
@@ -70,7 +74,9 @@ body {
     overflow: hidden;
 }
 
-.second, .minute, .hour {
+.second,
+.minute,
+.hour {
     width: 2px;
     height: 155px;
     position: absolute;
@@ -81,14 +87,15 @@ body {
 }
 
 .second {
-    background: var(--orange);
+    background: var(--main);
     height: 182px;
     top: calc(50% - 26px);
     transform: rotate(30deg);
     transform-origin: 1px 26px;
 }
 
-.minute, .hour {
+.minute,
+.hour {
     background: var(--white);
 }
 
@@ -97,7 +104,8 @@ body {
     transform: rotate(-30deg);
 }
 
-.minute::before, .hour::before {
+.minute::before,
+.hour::before {
     content: "";
     background: var(--white);
     position: absolute;
@@ -109,7 +117,8 @@ body {
     border-radius: 2mm;
 }
 
-.pivot, .pivot::before {
+.pivot,
+.pivot::before {
     width: 10px;
     height: 10px;
     background: var(--black);
@@ -125,5 +134,19 @@ body {
     content: "";
     width: 5px;
     height: 5px;
-    border: 1px solid var(--orange);
+    border: 1px solid var(--main);
+}
+
+.digital {
+    color: var(--white);
+    background: var(--black);
+    font-family: 'Orbitron', sans-serif;
+    font-size: 32px;
+    font-weight: 600;
+    text-align: center;
+    width: 280px;
+    margin-top: 20px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    box-shadow: -3px -3px 5px rgba(255, 255, 255, 0.05), 3px 3px 5px rgba(0, 0, 0, 0.5);
 }

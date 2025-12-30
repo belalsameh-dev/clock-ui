@@ -4,6 +4,7 @@ const pointer = {
   hour: document.querySelector(".hour"),
 };
 const points = document.querySelector(".points");
+const display = document.querySelector(".display");
 
 let hourNumber = 12;
 for (let i = 0; i < 360; i += 6) {
@@ -29,6 +30,14 @@ const setPointer = (pointer, deg) => {
 
 function setTime() {
   const now = new Date();
+
+  const time = now.toLocaleTimeString("en-US", {
+    hour12: true,
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+  });
+  display.textContent = time;
 
   const degree = {
     second: now.getSeconds() * 6,
