@@ -1,53 +1,56 @@
-const pointer = {
+const pointers = {
   second: document.querySelector(".second"),
   minute: document.querySelector(".minute"),
   hour: document.querySelector(".hour"),
 };
-const points = document.querySelector(".points");
-const display = document.querySelector(".display");
+const pointsContainer = document.querySelector(".points");
+const digitalDisplay = document.querySelector(".display");
 
-let hourNumber = 12;
-for (let i = 0; i < 360; i += 6) {
+const createPoint = (deg, hour) => {
   const point = document.createElement("span");
-  point.classList.add("point");
-  if ((i / 6) % 5 === 0) {
+  point.className = "point";
+  point.style.transform = `rotate(${deg}deg) translateY(-150px)`;
+
+  if (deg % 30 === 0) {
     point.classList.add("big");
     const text = document.createElement("span");
     text.className = "text";
-    text.textContent = hourNumber;
-    text.style.transform = `rotate(${-i}deg) translateY(2px)`;
+    text.textContent = hour === 0 ? 12 : hour;
+    text.style.transform = `rotate(${-deg}deg) translateY(2px)`;
     point.appendChild(text);
-    hourNumber === 12 ? (hourNumber = 1) : (hourNumber += 1);
   }
-  point.style.transform = `rotate(${i}deg) translateY(-150px)`;
-  points.appendChild(point);
+
+  return point;
+};
+for (let deg = 0; deg < 360; deg += 6) {
+  pointsContainer.appendChild(createPoint(deg, deg / 30));
 }
 
-const setPointer = (pointer, deg) => {
-  pointer.style.transition = deg === 0 ? "none" : "0.25s";
-  pointer.style.transform = `rotate(${deg - 180}deg)`;
+const rotateHand = (hand, deg) => {
+  hand.style.transition = deg === 0 ? "none" : "0.25s";
+  hand.style.transform = `rotate(${deg - 180}deg)`;
 };
 
-function setTime() {
-  const now = new Date();
+const updateAnalogTime = (now) => {
+  rotateHand(pointers.second, now.getSeconds() * 6);
+  rotateHand(pointers.minute, now.getMinutes() * 6);
+  rotateHand(pointers.hour, now.getHours() * 30 + now.getMinutes() * 0.5);
+};
 
-  const time = now.toLocaleTimeString("en-US", {
+const updateDigitalTime = (now) => {
+  digitalDisplay.textContent = now.toLocaleTimeString("en-US", {
     hour12: true,
     hour: "2-digit",
     minute: "2-digit",
     second: "2-digit",
   });
-  display.textContent = time;
+};
 
-  const degree = {
-    second: now.getSeconds() * 6,
-    minute: now.getMinutes() * 6,
-    hour: now.getHours() * 30 + now.getMinutes() * 0.5,
-  };
+const updateClock = () => {
+  const now = new Date();
+  updateAnalogTime(now);
+  updateDigitalTime(now);
+};
 
-  setPointer(pointer.second, degree.second);
-  setPointer(pointer.minute, degree.minute);
-  setPointer(pointer.hour, degree.hour);
-}
-setTime();
-setInterval(setTime, 1000);
+updateClock();
+setInterval(updateClock, 1000);
